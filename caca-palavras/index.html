@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Caça-Palavras VONDER</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-frame">
+
+  <!-- TELA 1: ABERTURA -->
+  <section id="screen-intro" class="screen active">
+    <a class="back-link" href="../" aria-label="Voltar"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <button id="btn-config-open" class="intro-logo" aria-label="Abrir configurações">
+      <img src="../assets/screens/logo-feiragrandesmarcas.png" alt="Feira Grandes Marcas OVD">
+    </button>
+    <div class="intro-box">
+      <div class="intro-header">
+        <h1 class="intro-title">BEM-VINDO!</h1>
+        <p class="intro-subtitle">Desafie sua atenção<br>e mostre que você é fera!</p>
+      </div>
+      <div class="intro-rules">
+        <p><span class="rule-icon">🔎</span> Encontre todas as palavras para vencer.</p>
+        <p><span class="rule-icon">⏱️</span> Você terá apenas <b id="intro-tempo">1 minuto</b> para caçar!</p>
+      </div>
+      <button id="btn-start" class="btn-yellow">Vamos jogar!</button>
+    </div>
+  </section>
+
+  <!-- TELA CONFIGURACOES DO OPERADOR -->
+  <section id="screen-config" class="screen">
+    <div class="config-box">
+      <h1 class="config-title">CONFIGURAÇÕES</h1>
+      <p class="config-subtitle">Ajustes do Caça-Palavras</p>
+
+      <div class="config-field">
+        <div class="config-label">
+          <span>Tempo de jogo</span>
+          <span class="config-value" id="val-jogo">60s</span>
+        </div>
+        <input type="range" class="config-range" id="rng-jogo" min="30" max="180" step="5">
+      </div>
+
+      <div class="config-field">
+        <div class="config-label">
+          <span>Tempo de inatividade</span>
+          <span class="config-value" id="val-inatividade">180s</span>
+        </div>
+        <input type="range" class="config-range" id="rng-inatividade" min="30" max="600" step="10">
+        <p class="config-hint">Sem nenhum toque nesse tempo, o totem exibe o vídeo de atração. Vale para todos os jogos do totem.</p>
+      </div>
+
+      <div class="config-actions">
+        <button id="btn-config-cancel" class="config-btn config-btn-ghost">CANCELAR</button>
+        <button id="btn-config-save" class="config-btn">SALVAR</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA VIDEO DE ATRACAO (inatividade) -->
+  <section id="screen-video" class="screen">
+    <video id="attract-video" class="attract-video" src="../assets/video/atracao.mp4" muted loop playsinline preload="none"></video>
+  </section>
+
+  <!-- TELA 2: JOGO -->
+  <section id="screen-game" class="screen">
+    <a class="back-link" href="../" aria-label="Voltar"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="timer-pill">
+      <span class="timer-icon">⏱</span>
+      <span id="timer-text">01:00</span>
+    </div>
+
+    <div class="panel header-panel">
+      <div class="search-icon">🔍</div>
+      <div class="header-text">
+        <h2><span class="white">CAÇA</span> <span class="yellow">PALAVRAS</span></h2>
+        <p>ENCONTRE AS PALAVRAS ESCONDIDAS!</p>
+      </div>
+    </div>
+
+    <div class="panel grid-panel">
+      <div id="board" class="board"></div>
+    </div>
+
+    <div class="word-list-wrap">
+      <h3>PALAVRAS PARA ENCONTRAR:</h3>
+      <ul id="word-list" class="word-list"></ul>
+    </div>
+  </section>
+
+  <!-- TELA 3: VITÓRIA -->
+  <section id="screen-win" class="screen" style="background-image:url('../assets/screens/ganhou.png');">
+    <button id="btn-finish-win" class="hit-area" aria-label="Finalizar"></button>
+  </section>
+
+  <!-- TELA 4: DERROTA -->
+  <section id="screen-lose" class="screen" style="background-image:url('../assets/screens/perdeu.png');">
+    <button id="btn-finish-lose" class="hit-area" aria-label="Finalizar"></button>
+  </section>
+
+</div>
+<script src="../assets/js/global-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

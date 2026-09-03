@@ -1,0 +1,452 @@
+:root {
+  --yellow: #FDBE0F;
+  --yellow-soft: #F7C845;
+  --dark: #121210;
+  --dark-2: #1a1a14;
+  --card-border: #FDBE0F;
+  --black: #000000;
+  --white: #FFFFFF;
+  --red-warning: #FF4D4D;
+  --grey-border: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --overlay-light: rgba(255, 255, 255, 0.08);
+  --overlay-dark-light: rgba(0, 0, 0, 0.12);
+  --overlay-dark: rgba(0, 0, 0, 0.35);
+  --overlay-dark-strong: rgba(0, 0, 0, 0.5);
+}
+
+@font-face {
+  font-family: 'Swis721 Cn BT';
+  src: url('../assets/Fontes/Swis721 Cn BT Roman.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Swis721 Cn BT';
+  src: url('../assets/Fontes/Swis721 Cn BT Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Swis721 Cn BT';
+  src: url('../assets/Fontes/Swis721 Cn BT Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Swis721 Cn BT';
+  src: url('../assets/Fontes/Swis721 Cn BT Bold Italic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+[hidden] { display: none !important; }
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/Fontes/Montserrat-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--black);
+  font-family: 'Swis721 Cn BT', 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.app-frame {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: calc(100vh * 1080 / 1920);
+  max-height: calc(100vw * 1920 / 1080);
+  aspect-ratio: 1080 / 1920;
+  background: var(--black);
+  overflow: hidden;
+  box-shadow: 0 0 40px var(--shadow-color);
+  container-type: inline-size;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--black);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.screen.active {
+  display: flex;
+  animation: screen-enter 0.4s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+@keyframes screen-enter {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* transparent clickable button placed on top of screenshot art (intro/win/lose) */
+.hit-area {
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  outline-offset: 4px;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.hit-area:hover { background: rgba(255,255,255,0.08); }
+.hit-area:active { background: rgba(0,0,0,0.12); transform: scale(0.96); }
+
+#btn-config-open { left: 12.8%;  top: 8.4%;   width: 38.2%;  height: 19.5%; }
+#btn-start       { left: 12.3%;  top: 75.2%;  width: 72.5%;  height: 6.2%; }
+/* ganhou.png e perdeu.png usam o mesmo template: botao na mesma posicao */
+#btn-finish-win,
+#btn-finish-lose { left: 21.57%; top: 86.04%; width: 56.76%; height: 6.88%; }
+
+.back-link {
+  position: absolute;
+  left: 4%;
+  top: 3%;
+  z-index: 2;
+  width: clamp(40px, 11vw, 56px);
+  height: clamp(40px, 11vw, 56px);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.back-link svg { width: 45%; height: 45%; }
+.back-link:hover { background: rgba(0,0,0,0.5); }
+.back-link:active { background: rgba(0,0,0,0.5); transform: scale(0.92); }
+
+/* ---------- GAME SCREEN ---------- */
+#screen-game {
+  background-image: url('../assets/screens/fundo-png.png');
+  background-size: cover;
+  background-position: center;
+  padding-top: 5%;
+  padding-bottom: 4%;
+  gap: 4%;
+}
+
+.footer-logo {
+  width: 26%;
+  height: auto;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.timer-pill {
+  background: var(--yellow);
+  color: #111;
+  font-weight: 800;
+  font-size: clamp(16px, 4.2vw, 22px);
+  padding: 8px 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+}
+
+.timer-pill.warning {
+  background: #ff4d4d;
+  color: #fff;
+  animation: pulse 0.6s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.2%;
+  width: 88%;
+  flex: 1;
+  align-content: start;
+  margin-top: 3%;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 79 / 104;
+  cursor: pointer;
+  perspective: 600px;
+  transition: transform 0.1s ease;
+}
+
+.card:not(.matched):active { transform: scale(0.92); }
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(.4,.2,.2,1);
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner,
+.card.matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-back {
+  background-image: url('../assets/screens/textura-aco.jpg');
+  background-size: cover;
+  background-position: center;
+  border: 2px solid var(--card-border);
+  color: #23262B;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  font-size: 6cqw;
+  font-weight: 900;
+  transition: opacity 0.3s ease;
+}
+
+.card-front {
+  background: #fff;
+  border: 2px solid #fff;
+  transform: rotateY(180deg);
+  padding: 4%;
+}
+
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card.matched .card-back { opacity: 0; }
+.card.matched .card-inner {
+  pointer-events: none;
+  animation: card-match-pop 0.4s ease;
+}
+.card.matched .card-front { box-shadow: 0 0 0 2px var(--yellow); }
+
+@keyframes card-match-pop {
+  0%   { transform: rotateY(180deg) scale(1); }
+  50%  { transform: rotateY(180deg) scale(1.12); }
+  100% { transform: rotateY(180deg) scale(1); }
+}
+
+
+
+/* ---------- FASE DE PREPARACAO (memorizar) ---------- */
+.card.preview .card-inner { transform: rotateY(180deg); }
+.card.preview { cursor: default; }
+
+.timer-label {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.timer-pill.prep {
+  background: #00698B;
+  color: var(--white);
+}
+
+/* ---------- TELA DE CONFIGURACOES ---------- */
+#screen-config {
+  background-image: url('../assets/screens/fundo-png.png');
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+  padding: 0 5%;
+}
+
+.config-box {
+  width: 100%;
+  background: #F2F2F2;
+  border-radius: 26px;
+  padding: 7% 7% 6%;
+  color: var(--dark);
+  text-align: left;
+  box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.config-title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(19px, 6vw, 26px);
+  font-weight: 900;
+}
+
+.config-subtitle {
+  margin: 4px 0 8%;
+  text-align: center;
+  font-weight: 300;
+  font-size: clamp(11px, 3vw, 14px);
+}
+
+.config-field { margin-bottom: 8%; }
+
+.config-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 800;
+  font-size: clamp(12px, 3.6vw, 15px);
+  margin-bottom: 10px;
+}
+
+.config-value {
+  flex: 0 0 auto;
+  background: var(--yellow);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-weight: 800;
+  font-size: clamp(11px, 3.2vw, 13.5px);
+  white-space: nowrap;
+}
+
+.config-hint {
+  margin: 10px 0 0;
+  font-weight: 400;
+  font-size: clamp(9.5px, 2.6vw, 11.5px);
+  line-height: 1.35;
+  opacity: 0.7;
+}
+
+.config-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #D5D5D5;
+  outline: none;
+  margin: 0;
+}
+
+.config-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 3px solid var(--white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.config-range::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 3px solid var(--white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.config-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10%;
+}
+
+.config-btn {
+  flex: 1 1 0;
+  background: var(--yellow);
+  color: var(--black);
+  border: none;
+  border-radius: 14px;
+  padding: 4% 0;
+  cursor: pointer;
+  font-family: 'Swis721 Cn BT', 'Segoe UI', Arial, sans-serif;
+  font-weight: 800;
+  font-size: clamp(12px, 3.6vw, 15px);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.12s ease, filter 0.12s ease, background 0.12s ease;
+}
+
+.config-btn:active { filter: brightness(0.92); transform: scale(0.96); }
+
+.config-btn-ghost {
+  background: transparent;
+  border: 2px solid #BBBBBB;
+  color: var(--dark);
+}
+
+.config-btn-ghost:active { background: #E2E2E2; transform: scale(0.96); }
+
+/* ---------- VIDEO DE ATRACAO ---------- */
+#screen-video {
+  background: var(--black);
+  justify-content: center;
+}
+
+.attract-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- TEMPO DE JOGO SOBRE A ARTE DA ABERTURA ----------
+   A arte jogototem.png tem "30 segundos" rasterizado. A mascara cobre
+   aquela linha (o cartao e branco puro ali) e o texto abaixo e redesenhado
+   em Montserrat, a mesma fonte da arte, com o valor da configuracao.
+   Medidas em % / cqw sobre a moldura de 1080x1920. */
+.intro-tempo-mask {
+  position: absolute;
+  left: 19.44%;
+  top: 66.82%;
+  width: 39.81%;
+  height: 2.4%;
+  background: #FFFFFF;
+  pointer-events: none;
+}
+
+.intro-tempo {
+  position: absolute;
+  left: 20%;
+  top: 67.08%;
+  color: #000000;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 2.963cqw;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}

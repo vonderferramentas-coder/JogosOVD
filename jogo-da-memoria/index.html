@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Jogo da Memória VONDER</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-frame">
+
+  <!-- TELA 1: ABERTURA -->
+  <section id="screen-intro" class="screen active" style="background-image:url('../assets/screens/jogototem.png');">
+    <a class="back-link" href="../" aria-label="Voltar"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <button id="btn-config-open" class="hit-area" aria-label="Abrir configurações"></button>
+    <div class="intro-tempo-mask" aria-hidden="true"></div>
+    <div id="intro-tempo" class="intro-tempo">30 segundos</div>
+
+    <button id="btn-start" class="hit-area" aria-label="Vamos jogar"></button>
+  </section>
+
+  <!-- TELA 2: CONFIGURAÇÕES DO OPERADOR -->
+  <section id="screen-config" class="screen">
+    <div class="config-box">
+      <h1 class="config-title">CONFIGURAÇÕES</h1>
+      <p class="config-subtitle">Ajustes do Jogo da Memória</p>
+
+      <div class="config-field">
+        <div class="config-label">
+          <span>Tempo de jogo</span>
+          <span class="config-value" id="val-jogo">30s</span>
+        </div>
+        <input type="range" class="config-range" id="rng-jogo" min="15" max="180" step="5">
+      </div>
+
+      <div class="config-field">
+        <div class="config-label">
+          <span>Tempo de preparação</span>
+          <span class="config-value" id="val-preparacao">5s</span>
+        </div>
+        <input type="range" class="config-range" id="rng-preparacao" min="0" max="30" step="1">
+        <p class="config-hint">As cartas ficam viradas para cima nesse tempo, antes do jogo começar.</p>
+      </div>
+
+      <div class="config-field">
+        <div class="config-label">
+          <span>Tempo de inatividade</span>
+          <span class="config-value" id="val-inatividade">180s</span>
+        </div>
+        <input type="range" class="config-range" id="rng-inatividade" min="30" max="600" step="10">
+        <p class="config-hint">Sem nenhum toque nesse tempo, o totem exibe o vídeo de atração. Qualquer toque encerra o vídeo.</p>
+      </div>
+
+      <div class="config-actions">
+        <button id="btn-config-cancel" class="config-btn config-btn-ghost">CANCELAR</button>
+        <button id="btn-config-save" class="config-btn">SALVAR</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 3: JOGO -->
+  <section id="screen-game" class="screen">
+    <a class="back-link" href="../" aria-label="Voltar"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="timer-pill">
+      <span class="timer-icon">⏱</span>
+      <span id="timer-label" class="timer-label" hidden>MEMORIZE</span>
+      <span id="timer-text">00:30</span>
+    </div>
+
+    <div id="board" class="board"></div>
+
+    <img class="footer-logo" src="../assets/screens/logo-feiragrandesmarcas.png" alt="Feira Grandes Marcas OVD">
+  </section>
+
+  <!-- TELA 4: VITÓRIA -->
+  <section id="screen-win" class="screen" style="background-image:url('../assets/screens/ganhou.png');">
+    <button id="btn-finish-win" class="hit-area" aria-label="Finalizar"></button>
+  </section>
+
+  <!-- TELA 5: DERROTA -->
+  <section id="screen-lose" class="screen" style="background-image:url('../assets/screens/perdeu.png');">
+    <button id="btn-finish-lose" class="hit-area" aria-label="Finalizar"></button>
+  </section>
+
+  <!-- TELA 6: VÍDEO DE ATRAÇÃO (inatividade) -->
+  <section id="screen-video" class="screen">
+    <video id="attract-video" class="attract-video" src="../assets/video/atracao.mp4" muted loop playsinline preload="none"></video>
+  </section>
+
+</div>
+<script src="../assets/js/global-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
