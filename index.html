@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Jogos VONDER</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app-frame">
+
+    <!-- TELA 1: ESCOLHA DO JOGO -->
+    <section id="screen-select" class="screen active">
+      <div class="intro-group">
+        <button id="btn-config-open" class="logo-btn" aria-label="Abrir configurações">
+          <img class="intro-logo" src="assets/screens/logo-feiragrandesmarcas.png" alt="Feira Grandes Marcas OVD">
+        </button>
+        <div class="select-box">
+          <h1 class="select-title">ESCOLHA SEU JOGO!</h1>
+          <p class="select-subtitle">Desafie sua mente e concorra a brindes VONDER!</p>
+
+          <div class="game-list">
+            <a class="game-card" data-game="jogo-da-memoria" href="jogo-da-memoria/">
+              <span class="game-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <rect x="5" y="13" width="18" height="24" rx="3" stroke="currentColor" stroke-width="3.4" />
+                  <rect x="25" y="9" width="18" height="24" rx="3" fill="currentColor" />
+                </svg>
+              </span>
+              <span class="game-text">
+                <span class="game-name">Jogo da Memória</span>
+                <span class="game-desc">Encontre todos os pares e vença o tempo.</span>
+              </span>
+              <span class="game-arrow">›</span>
+            </a>
+
+            <a class="game-card" data-game="caca-palavras" href="caca-palavras/">
+              <span class="game-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <rect x="5" y="5" width="30" height="30" rx="3" stroke="currentColor" stroke-width="3.4" />
+                  <path d="M5 15h30M5 25h30M15 5v30M25 5v30" stroke="currentColor" stroke-width="1.6" opacity=".55" />
+                  <path d="M31 31 43 43" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+                </svg>
+              </span>
+              <span class="game-text">
+                <span class="game-name">Caça-Palavras</span>
+                <span class="game-desc">Ache as palavras escondidas na grade.</span>
+              </span>
+              <span class="game-arrow">›</span>
+            </a>
+
+            <a class="game-card" data-game="quiz" href="quiz/">
+              <span class="game-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <path
+                    d="M24 6c9.4 0 17 6.3 17 14 0 7.7-7.6 14-17 14-1.8 0-3.6-.2-5.2-.7L9 37l2.6-6.6C8.7 27.8 7 24.1 7 20 7 12.3 14.6 6 24 6Z"
+                    fill="currentColor" />
+                  <path d="M20.6 21.2c0-3.6 4.9-2.9 4.9-6.1 0-1.9-1.6-3.2-3.7-3.2-1.8 0-3.3.9-4 2.3" stroke="#121210"
+                    stroke-width="2.6" stroke-linecap="round" />
+                  <circle cx="23" cy="27" r="2" fill="#121210" />
+                </svg>
+              </span>
+              <span class="game-text">
+                <span class="game-name">Quiz VONDER</span>
+                <span class="game-desc">Responda 3 perguntas sobre a marca.</span>
+              </span>
+              <span class="game-arrow">›</span>
+            </a>
+
+            <p id="no-games" class="no-games" hidden>Nenhum jogo disponível no momento.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TELA 2: CONFIGURAÇÕES DO OPERADOR -->
+    <section id="screen-config" class="screen">
+      <div class="intro-group">
+        <div class="select-box">
+          <h1 class="select-title">CONFIGURAÇÕES</h1>
+          <p class="select-subtitle">Selecione os jogos liberados para o público.</p>
+
+          <div class="game-list">
+            <label class="config-row">
+              <span class="game-text">
+                <span class="game-name">Jogo da Memória</span>
+                <span class="game-desc">Encontre todos os pares e vença o tempo.</span>
+              </span>
+              <input type="checkbox" class="config-check" data-game="jogo-da-memoria">
+              <span class="switch" aria-hidden="true"></span>
+            </label>
+
+            <label class="config-row">
+              <span class="game-text">
+                <span class="game-name">Caça-Palavras</span>
+                <span class="game-desc">Ache as palavras escondidas na grade.</span>
+              </span>
+              <input type="checkbox" class="config-check" data-game="caca-palavras">
+              <span class="switch" aria-hidden="true"></span>
+            </label>
+
+            <label class="config-row">
+              <span class="game-text">
+                <span class="game-name">Quiz VONDER</span>
+                <span class="game-desc">Responda 3 perguntas sobre a marca.</span>
+              </span>
+              <input type="checkbox" class="config-check" data-game="quiz">
+              <span class="switch" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <p id="config-warning" class="config-warning" hidden>Deixe pelo menos um jogo ativo.</p>
+
+          <div class="config-field">
+            <div class="config-label">
+              <span>Tempo de inatividade</span>
+              <span class="config-value" id="val-inatividade">180s</span>
+            </div>
+            <input type="range" class="config-range" id="rng-inatividade" min="30" max="600" step="10">
+            <p class="config-hint">Sem nenhum toque nesse tempo, o totem exibe o vídeo de atração. Vale para todos os
+              jogos do totem.</p>
+          </div>
+
+          <div class="config-actions">
+            <button id="btn-config-cancel" class="config-btn config-btn-ghost">CANCELAR</button>
+            <button id="btn-config-save" class="config-btn">SALVAR</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TELA VIDEO DE ATRACAO (inatividade) -->
+    <section id="screen-video" class="screen">
+      <video id="attract-video" class="attract-video" src="assets/video/atracao.mp4" muted loop playsinline
+        preload="none"></video>
+    </section>
+
+  </div>
+  <script src="assets/js/global-config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
