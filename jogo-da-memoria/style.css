@@ -105,6 +105,26 @@ body {
   to   { opacity: 1; transform: scale(1); }
 }
 
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -5%;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+  0%   { top: -5%; transform: translateX(0) rotate(0deg); }
+  100% { top: 105%; transform: translateX(var(--drift, 0px)) rotate(600deg); }
+}
+
 /* transparent clickable button placed on top of screenshot art (intro/win/lose) */
 .hit-area {
   position: absolute;
@@ -242,7 +262,7 @@ body {
 
 .card-front {
   background: #fff;
-  border: 2px solid #fff;
+  border: 2px solid var(--yellow);
   transform: rotateY(180deg);
   padding: 4%;
 }

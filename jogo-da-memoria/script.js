@@ -1,7 +1,7 @@
 (() => {
   const CARD_NAMES = [
-    'disco_corte', 'trena', 'lavadora', 'spray',
-    'mascote', 'mochila', 'parafusadeira', 'logo_vonder'
+    'alicate', 'trena', 'serra', 'ticotico',
+    'alvim', 'chaveimpacto', 'parafusadeira', 'ovd'
   ];
 
   const STORAGE_KEY = 'ovd_memoria_config';
@@ -24,6 +24,7 @@
     video: document.getElementById('screen-video'),
   };
   const board = document.getElementById('board');
+  const confetti = document.getElementById('confetti');
   const timerText = document.getElementById('timer-text');
   const timerLabel = document.getElementById('timer-label');
   const timerPill = document.querySelector('.timer-pill');
@@ -127,6 +128,28 @@
     document.addEventListener(ev, onActivity, true);
   });
 
+  /* ---------- CONFETE (tela de vitoria) ---------- */
+
+  const CONFETTI_COLORS = ['#FDBE0F', '#F7C845', '#FFFFFF', '#FF7A00', '#2E86FF'];
+
+  function spawnConfetti() {
+    confetti.innerHTML = '';
+    for (let i = 0; i < 90; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const size = 6 + Math.random() * 8;
+      piece.style.left = Math.random() * 100 + '%';
+      piece.style.width = size + 'px';
+      piece.style.height = size * 1.7 + 'px';
+      piece.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+      piece.style.borderRadius = Math.random() < 0.5 ? '50%' : '2px';
+      piece.style.animationDuration = 2.5 + Math.random() * 2 + 's';
+      piece.style.animationDelay = Math.random() * 0.8 + 's';
+      piece.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+      confetti.appendChild(piece);
+    }
+  }
+
   /* ---------- JOGO ---------- */
 
   function shuffle(arr) {
@@ -149,7 +172,7 @@
         <div class="card-inner">
           <div class="card-face card-back">?</div>
           <div class="card-face card-front">
-            <img src="../assets/cards/${name}.png" alt="${name}">
+            <img src="../assets/cards/${name}.jpg" alt="${name}">
           </div>
         </div>
       `;
@@ -241,6 +264,7 @@
   function endGame(won) {
     clearInterval(timerId);
     lockBoard = true;
+    if (won) spawnConfetti();
     showScreen(won ? 'win' : 'lose');
   }
 
