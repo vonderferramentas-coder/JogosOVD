@@ -1,0 +1,17 @@
+{
+  "name": "Jogos VONDER",
+  "short_name": "Jogos VONDER",
+  "description": "Jogos interativos da VONDER para totens.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#ffcc00",
+  "theme_color": "#ffcc00",
+  "icons": [{
+    "src": "assets/screens/logo-feiragrandesmarcas.png",
+    "sizes": "900x840",
+    "type": "image/png",
+    "purpose": "any"
+  }]
+}
